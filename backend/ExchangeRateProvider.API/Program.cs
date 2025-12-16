@@ -13,7 +13,14 @@ namespace ExchangeRateProvider.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddProblemDetails(config =>
+            {
+                config.CustomizeProblemDetails = context =>
+                {
+                    context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+                };
+            });
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -33,7 +40,7 @@ namespace ExchangeRateProvider.API
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<GlobalExceptionHandler>();
+            app.UseExceptionHandler();
             app.UseAuthorization();
 
 

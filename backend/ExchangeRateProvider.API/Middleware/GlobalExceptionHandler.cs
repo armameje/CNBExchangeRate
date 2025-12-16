@@ -1,31 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeRateProvider.API.Middleware
 {
-    internal sealed class GlobalExceptionHandler(RequestDelegate next)
+    internal sealed class GlobalExceptionHandler(IProblemDetailsService problemDetailsService) : IExceptionHandler
     {
-        public async Task InvokeAsync(HttpContext context)
+        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            try
+            httpContext.Response.StatusCode = exception switch
             {
-                await next(context);
-            }
-            catch (Exception e)
-            {
-                context.Response.StatusCode = e switch
-                {
-                    ApplicationException => StatusCodes.Status400BadRequest,
-                    _ => StatusCodes.Status500InternalServerError
-                };
+                ApplicationException => StatusCodes.Status400BadRequest,
+                _ => StatusCodes.Status500InternalServerError
+            };
 
-                await context.Response.WriteAsJsonAsync(
-                    new ProblemDetails
-                    {
-                        Type = e.GetType().Name,
-                        Title = "An error occured",
-                        Detail = e.Message
-                    });
-            }
+            return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+            {
+                HttpContext = httpContext,
+                Exception = exception,
+                ProblemDetails = new ProblemDetails
+                { 
+                    Type = exception.GetType().Name,
+                    Title = "An error occured",
+                    Detail = exception.Message
+                }
+            });
         }
     }
 }
