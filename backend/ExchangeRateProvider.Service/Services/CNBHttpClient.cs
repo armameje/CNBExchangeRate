@@ -1,6 +1,8 @@
-﻿using ExchangeRateProvider.Domain.Options;
+﻿using ExchangeRateProvider.Domain.Common;
+using ExchangeRateProvider.Domain.Options;
 using ExchangeRateProvider.Domain.Services;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace ExchangeRateProvider.Service.Services
 {
@@ -17,9 +19,21 @@ namespace ExchangeRateProvider.Service.Services
             _httpClient.BaseAddress = new Uri(_options.Uri);
         }
 
-        public Task GetExchangeRatesToday()
+        public async Task GetExchangeRatesToday()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _httpClient.GetAsync("exrates/daily?lang=EN").ConfigureAwait(false);
+
+                response.EnsureSuccessStatusCode();
+
+                var content = await response.Content.ReadFromJsonAsync<Rates>().ConfigureAwait(false);
+
+            }
+            catch (Exception e)
+            {
+                var x = e;
+            }
         }
     }
 }

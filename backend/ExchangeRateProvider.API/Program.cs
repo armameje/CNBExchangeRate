@@ -1,5 +1,7 @@
 
 using ExchangeRateProvider.Domain.Options;
+using ExchangeRateProvider.Domain.Services;
+using ExchangeRateProvider.Service.Services;
 
 namespace ExchangeRateProvider.API
 {
@@ -17,6 +19,8 @@ namespace ExchangeRateProvider.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.Configure<CNBOptions>(builder.Configuration.GetSection("CBN"));
+            builder.Services.AddHttpClient<ICNBHttpClient, CNBHttpClient>();
+
 
             var app = builder.Build();
 
