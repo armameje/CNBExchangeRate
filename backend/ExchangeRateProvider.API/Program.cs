@@ -1,4 +1,6 @@
 
+using ExchangeRateProvider.Domain.Options;
+
 namespace ExchangeRateProvider.API
 {
     public class Program
@@ -13,6 +15,8 @@ namespace ExchangeRateProvider.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.Configure<CNBOptions>(builder.Configuration.GetSection("CBN"));
 
             var app = builder.Build();
 
