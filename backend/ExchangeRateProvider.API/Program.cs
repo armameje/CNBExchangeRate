@@ -1,4 +1,5 @@
 
+using ExchangeRateProvider.API.Middleware;
 using ExchangeRateProvider.Domain.Options;
 using ExchangeRateProvider.Domain.Services;
 using ExchangeRateProvider.Service.Services;
@@ -32,7 +33,7 @@ namespace ExchangeRateProvider.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseMiddleware<GlobalExceptionHandler>();
             app.UseAuthorization();
 
 
