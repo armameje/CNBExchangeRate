@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Header } from '../components/header/header';
-import { HlmButton, HlmButtonImports } from "@spartan-ng/helm/button"
+import { Main } from '../components/main/main';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, HlmButton, HlmButtonImports],
+  imports: [Header, Main],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
