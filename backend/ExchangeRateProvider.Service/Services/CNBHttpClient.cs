@@ -19,7 +19,7 @@ namespace ExchangeRateProvider.Service.Services
             _httpClient.BaseAddress = new Uri(_options.Uri);
         }
 
-        public async Task GetExchangeRatesToday()
+        public async Task<Rates> GetExchangeRatesToday()
         {
             try
             {
@@ -28,11 +28,12 @@ namespace ExchangeRateProvider.Service.Services
                 response.EnsureSuccessStatusCode();
 
                 var content = await response.Content.ReadFromJsonAsync<Rates>().ConfigureAwait(false);
-
+                return content!;
             }
             catch (Exception e)
             {
                 var x = e;
+                throw;
             }
         }
     }

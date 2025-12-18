@@ -21,6 +21,15 @@ namespace ExchangeRateProvider.API
                 };
             });
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +37,6 @@ namespace ExchangeRateProvider.API
 
             builder.Services.Configure<CNBOptions>(builder.Configuration.GetSection("CBN"));
             builder.Services.AddHttpClient<ICNBHttpClient, CNBHttpClient>();
-
 
             var app = builder.Build();
 
@@ -39,6 +47,7 @@ namespace ExchangeRateProvider.API
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
             app.UseExceptionHandler();
             app.UseAuthorization();

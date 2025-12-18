@@ -1,7 +1,9 @@
-﻿namespace ExchangeRateProvider.Domain.Services
+﻿using ExchangeRateProvider.Domain.Common;
+
+namespace ExchangeRateProvider.Domain.Services
 {
     public interface ICNBHttpClient
     {
-        Task GetExchangeRatesToday();
+        Task<Rates> GetExchangeRatesToday();
     }
 }
