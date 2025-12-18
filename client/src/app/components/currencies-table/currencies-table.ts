@@ -3,7 +3,7 @@ import { HlmCard, HlmCardHeader, HlmCardTitle, HlmCardContent } from '@spartan-n
 import { HlmTableContainer, HlmTable, HlmTHead, HlmTh, HlmTBody, HlmTd, HlmTr } from '@spartan-ng/helm/table';
 import { ExchangeRateApi } from '../../services/exchange-rate-api';
 import { catchError } from 'rxjs';
-import { DatePipe, NgForOf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-currencies-table',
@@ -20,13 +20,12 @@ import { DatePipe, NgForOf } from '@angular/common';
     HlmTd,
     DatePipe,
     HlmTr,
-    NgForOf
 ],
   templateUrl: './currencies-table.html',
   styleUrl: './currencies-table.css',
 })
 export class CurrenciesTable implements OnInit {
-  currentDate = signal('Test');
+  currentDate = signal('');
   exchangeRates = signal<Array<Rate>>([]);
   apiService = inject(ExchangeRateApi);
 
