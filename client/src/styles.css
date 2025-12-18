@@ -2,7 +2,7 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/preflight.css' layer(base);
 @import 'tailwindcss/utilities.css';
-
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 
 /* You can add global styles to this file, and also import other style files */
@@ -83,6 +83,13 @@ body {
 }
 }
 
+@font-face {
+    font-family: 'Oswald';
+    src: url('app/assets/fonts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html {
     width: 100vw;
     height: 100vh;
@@ -92,4 +99,5 @@ body {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    overflow-x: hidden;
 }
