@@ -19,7 +19,8 @@ namespace ExchangeRateProvider.Service.Services
             _httpClient.BaseAddress = new Uri(_options.Uri);
         }
 
-        public async Task<Rates> GetExchangeRatesToday()
+
+        public async Task<Rates> GetExchangeRatesTodayAsync()
         {
             try
             {
@@ -32,7 +33,6 @@ namespace ExchangeRateProvider.Service.Services
             }
             catch (Exception e)
             {
-                var x = e;
                 throw;
             }
         }

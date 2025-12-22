@@ -17,7 +17,7 @@ namespace ExchangeRateProvider.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Today()
         {
-            var result = await _cnbHttpClient.GetExchangeRatesToday();
+            var result = await _cnbHttpClient.GetExchangeRatesTodayAsync();
 
             return Ok(result);
         }

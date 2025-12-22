@@ -49,7 +49,7 @@ namespace ExchangeRateProvider.Tests.UnitTests
 
             ICNBHttpClient cnbHttpClient = new CNBHttpClient(httpClient, _options);
 
-            var result = await cnbHttpClient.GetExchangeRatesToday();
+            var result = await cnbHttpClient.GetExchangeRatesTodayAsync();
 
             Assert.True(result.rates.Count.Equals(4));
         }
@@ -85,7 +85,7 @@ namespace ExchangeRateProvider.Tests.UnitTests
 
             ICNBHttpClient cnbHttpClient = new CNBHttpClient(httpClient, _options);
 
-            var result = await cnbHttpClient.GetExchangeRatesToday();
+            var result = await cnbHttpClient.GetExchangeRatesTodayAsync();
 
             Assert.Contains(result.rates, x => x.country == "Australia");
         }
@@ -112,7 +112,7 @@ namespace ExchangeRateProvider.Tests.UnitTests
 
             ICNBHttpClient cnbHttpClient = new CNBHttpClient(httpClient, _options);
 
-            await Assert.ThrowsAsync<HttpRequestException>(cnbHttpClient.GetExchangeRatesToday);
+            await Assert.ThrowsAsync<HttpRequestException>(cnbHttpClient.GetExchangeRatesTodayAsync);
         }
     }
 }
