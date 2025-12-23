@@ -1,9 +1,0 @@
-services:
-  exchangerateprovider.api:
-    image: exchangerateproviderapi
-    build:
-      context: .
-      dockerfile: ExchangeRateProvider.API/Dockerfile
-    ports:
-        - "8756:8080"
-        - "8757:8081"
