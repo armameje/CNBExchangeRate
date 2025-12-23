@@ -29,3 +29,8 @@ Using bash or any cli, change directory to the folder where the docker-compose.y
 ```sh
 docker-compose up -d --build
 ```
+API
+ - https://localhost:8757/
+ 
+Website
+ - http://localhost:4201/
