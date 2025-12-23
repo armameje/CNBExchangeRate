@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
 using System.Net.Http.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExchangeRateProvider.Tests.UnitTests
 {
