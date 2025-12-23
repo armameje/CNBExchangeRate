@@ -1,27 +1,45 @@
 <section hlmCard class="font-[Oswald]">
   <div hlmCardHeader class="flex justify-center items-center">
+    @if (!isLoading()) {
     <h3>Exchange Rates for: {{ currentDate() | date : 'mediumDate' }}</h3>
+    }
+    @if (errorMessage().length > 0) {
+      <h3>{{ errorMessage() }}</h3>
+    }
   </div>
   <div hlmCardContent>
     <div hlmTableContainer class="px-[3rem]">
+      @if (!isLoading()) {
       <table hlmTable class="table-fixed w-full border-collapse">
         <thead hlmTHead>
           <th hlmTh class="text-[2rem] text-left w-[30%] px-[2rem] px-[0.6rem]">Country</th>
           <th hlmTh class="text-[2rem] text-center w-[25%] px-[2rem] px-[0.6rem]">Country Code</th>
           <th hlmTh class="text-[2rem] text-center w-[15%] px-[2rem] px-[0.6rem]">Currency</th>
-          <th hlmTh class="text-[2rem] text-right w-[30%] px-[2rem] px-[0.6rem]">Czech Koruna Equivalent</th>
+          <th hlmTh class="text-[2rem] text-right w-[30%] px-[2rem] px-[0.6rem]">
+            Czech Koruna Equivalent
+          </th>
         </thead>
         <tbody hlmTBody>
           @for (exchangeRate of exchangeRates(); track $index) {
           <tr hlmTr>
-            <td hlmTd class="px-[2rem] px-[0.6rem] py-10 text-[1.5rem]">{{ exchangeRate.country }}</td>
-            <td hlmTd class="text-center px-[2rem] px-[0.6rem] text-[1rem]">{{ exchangeRate.currencyCode }}</td>
-            <td hlmTd class="text-center px-[2rem] px-[0.6rem] text-[1rem]">{{ exchangeRate.currency }}</td>
-            <td hlmTd class="text-right px-[2rem] px-[0.6rem] text-[1rem]">{{ exchangeRate.rate/exchangeRate.amount }}</td>
+            <td hlmTd class="px-[2rem] px-[0.6rem] py-10 text-[1.5rem]">
+              {{ exchangeRate.country }}
+            </td>
+            <td hlmTd class="text-center px-[2rem] px-[0.6rem] text-[1rem]">
+              {{ exchangeRate.currencyCode }}
+            </td>
+            <td hlmTd class="text-center px-[2rem] px-[0.6rem] text-[1rem]">
+              {{ exchangeRate.currency }}
+            </td>
+            <td hlmTd class="text-right px-[2rem] px-[0.6rem] text-[1rem]">
+              {{ exchangeRate.rate / exchangeRate.amount }}
+            </td>
           </tr>
           }
         </tbody>
       </table>
+      }
     </div>
   </div>
 </section>
+<ng-http-loader [minDuration]="1000" spinner="sk-chasing-dots"></ng-http-loader>

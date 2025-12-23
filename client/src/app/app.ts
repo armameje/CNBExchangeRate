@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home';
   selector: 'app-root',
   imports: [RouterOutlet, HomeComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('client');
